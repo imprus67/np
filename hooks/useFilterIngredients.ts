@@ -16,7 +16,7 @@ interface PriceProps {
   priceFrom: number;
   priceTo: number;
 }
-export const useFilterIngredients = (): ReturnProps => {
+export const useFilterIngredients = (values: string[]): ReturnProps => {
   const [ingredients, setIngredients] = React.useState<
     ReturnProps["ingredients"]
   >([]);
@@ -45,10 +45,22 @@ export const useFilterIngredients = (): ReturnProps => {
     }
     fetchIngredients();
   }, []);
+
+  /* const setSelectedIngredients = (ids: string[]) => {
+    ids.forEach((id) => {
+      if (selectedIds.has(id)) {
+        return;
+      } else {
+        selectedIds.add(id);
+      }
+    });
+  };
+*/
   return {
     ingredients,
     loading,
     onAddId: toggle,
     selectedIngredients: selectedIds,
+    // setSelectedIngredients
   };
 };

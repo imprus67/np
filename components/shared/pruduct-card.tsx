@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { Title } from "./title";
 import { Button } from "../ui/button";
+import { Plus } from "lucide-react";
 
 interface Props {
   id: number;
@@ -32,7 +33,10 @@ export const ProductCard: React.FC<Props> = ({
           <span className="text-[20px]">
             от <b>{price} ₽</b>
           </span>
-          <Button variant="secondary" className="text-base font-bold"></Button>
+          <Button variant="secondary" className="text-base font-bold">
+            <Plus />
+            Добавить
+          </Button>
         </div>
       </Link>
     </div>
