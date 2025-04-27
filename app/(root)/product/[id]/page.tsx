@@ -1,5 +1,5 @@
 import { prisma } from "@/prisma/prisma-client";
-import { Container, ProductImage } from "@/components/shared";
+import { Container, GroupVariants, ProductImage } from "@/components/shared";
 import { notFound } from "next/navigation";
 import { Title } from "@/components/shared/title";
 
@@ -25,10 +25,30 @@ export default async function ProductPage({
             size="md"
             className="font-extrabold mb-1"
           />
+
           <p className="text-gray-400">
             {
               "loremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremlorem "
             }
+
+            <GroupVariants
+              selectedValue="2"
+              items={[
+                {
+                  name: "маленькая",
+                  value: "1",
+                },
+                {
+                  name: "средняя",
+                  value: "2",
+                },
+                {
+                  name: "большая",
+                  value: "3",
+                  disabled: true,
+                },
+              ]}
+            />
           </p>
         </div>
       </div>
