@@ -11,3 +11,6 @@ export { ProductsListGroup } from "./products-list-group";
 export { SearchInput } from "./search-input";
 export { ProductImage } from "./product-image";
 export { GroupVariants } from "./group-variants";
+export { ProductForm } from "./product-form";
+export { ChoosePizzaForm } from "./choose-pizza-form";
+export * from "./modals";

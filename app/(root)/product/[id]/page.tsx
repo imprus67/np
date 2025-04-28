@@ -30,26 +30,25 @@ export default async function ProductPage({
             {
               "loremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremloremlorem "
             }
-
-            <GroupVariants
-              selectedValue="2"
-              items={[
-                {
-                  name: "маленькая",
-                  value: "1",
-                },
-                {
-                  name: "средняя",
-                  value: "2",
-                },
-                {
-                  name: "большая",
-                  value: "3",
-                  disabled: true,
-                },
-              ]}
-            />
           </p>
+          <GroupVariants
+            selectedValue="2"
+            items={[
+              {
+                name: "маленькая",
+                value: "1",
+              },
+              {
+                name: "средняя",
+                value: "2",
+              },
+              {
+                name: "большая",
+                value: "3",
+                disabled: true,
+              },
+            ]}
+          />
         </div>
       </div>
     </Container>

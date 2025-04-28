@@ -25,7 +25,7 @@ export default function DashboardLayout({
   return (
     <html lang="en">
       <body className={nunito.className}>
-        <main className="min-h-screen">
+        <main className="min-h-screen bg-sky-500">
           <Header />
           {children}
         </main>
