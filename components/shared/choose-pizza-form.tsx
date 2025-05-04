@@ -5,6 +5,7 @@ import { Button } from "../ui";
 import { PizzaImage } from "./pizza-image";
 import { GroupVariants } from "./group-variants";
 import {
+  mapPizzaType,
   PizzaSize,
   pizzaSizes,
   PizzaType,
@@ -28,7 +29,7 @@ interface Props {
 }
 export const ChoosePizzaForm: React.FC<Props> = ({
   name,
-  // items,
+  items,
   imageUrl,
   className,
   onClickAddCart,
@@ -40,8 +41,48 @@ export const ChoosePizzaForm: React.FC<Props> = ({
     new Set<number>([]),
   );
 
-  const textDetails = "`30см, тесто тонкое, 590 г";
-  const totalPrice = 790;
+  const textDetails = `${size} см, ${mapPizzaType[type]} тесто`;
+
+  const pizzaPrice =
+    items.find((item) => item.size === size && item.pizzaType === type)
+      ?.price || 0;
+
+  const totalIngredientsPrice = ingredients
+    .filter((ingredient) => selectedIngredients.has(ingredient.id))
+    .reduce((acc, ingredient) => acc + ingredient.price, 0);
+
+  const totalPrice = pizzaPrice + totalIngredientsPrice;
+
+  const handleClickAdd = () => {
+    onClickAddCart?.();
+    console.log({
+      size,
+      type,
+      ingredients: selectedIngredients,
+    });
+  };
+
+  const availablePizzas = items.filter((item) => item.pizzaType === type);
+
+  const availablePizzasSizes = pizzaSizes.map((item) => ({
+    name: item.name,
+    value: item.value,
+    disabled: !availablePizzas.some(
+      (pizza) => Number(pizza.size) === Number(item.value),
+    ),
+  }));
+
+  React.useEffect(() => {
+    const isAvailableSize = availablePizzasSizes?.find(
+      (item) => Number(item.value) === size && !item.disabled,
+    );
+    const availableSize = availablePizzasSizes?.find((item) => !item.disabled);
+    if (!isAvailableSize && availableSize) {
+      setSize(Number(availableSize.value) as PizzaSize);
+    }
+  }, [type]);
+
+  // console.log({ items, availablePizzas, availablePizzasSizes });
 
   return (
     <div className={cn(className, "flex flex-1")}>
@@ -51,7 +92,7 @@ export const ChoosePizzaForm: React.FC<Props> = ({
         <p className="text-gray-400">{textDetails}</p>
         <div className="flex flex-col gap-3 mt-3">
           <GroupVariants
-            items={pizzaSizes}
+            items={availablePizzasSizes}
             value={String(size)}
             onClick={(value) => setSize(Number(value) as PizzaSize)}
           />
@@ -75,7 +116,10 @@ export const ChoosePizzaForm: React.FC<Props> = ({
             ))}
           </div>
         </div>
-        <Button className="h-[55px] px-10 text-base rounded-[18px] w-full mt-10">
+        <Button
+          onClick={handleClickAdd}
+          className="h-[55px] px-10 text-base rounded-[18px] w-full mt-10"
+        >
           {totalPrice} ₽
         </Button>
       </div>
